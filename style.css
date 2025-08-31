@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #72e5f1 0%, #1a9bb5 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #000000;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 10px;
+}
+
+p {
+    color: #654321;
+    font-size: 1.2rem;
+}
+
+#goatCanvas {
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 100%);
+    cursor: crosshair;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.controls {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+button {
+    background: #ec1caa;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:hover {
+    background: #1c1b1b;
+    transform: scale(1.05);
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.7);
+    padding: 10px 15px;
+    border-radius: 25px;
+}
+
+.volume-control label {
+    color: #654321;
+    font-weight: bold;
+}
+
+input[type="range"] {
+    width: 100px;
+}
+
+.stats {
+    background: rgba(255,255,255,0.8);
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.stats span {
+    font-weight: bold;
+    color: #8B4513;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screaming Goat Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐐 Screaming Goat Simulator 🐐</h1>
+            <p>Move your mouse around. You scared the goats!</p>
+        </header>
+        
+        <canvas id="goatCanvas" width="800" height="600"></canvas>
+        
+        <div class="controls">
+            <button id="startBtn">Start Goat Panic</button>
+            <button id="stopBtn">Calm the Goats</button>
+            <div class="volume-control">
+                <label for="volume">Scream Volume:</label>
+                <input type="range" id="volume" min="0" max="1" step="0.1" value="0.7">
+            </div>
+        </div>
+        
+        <div class="stats">
+            <p>Goats Scared: <span id="goatCount">0</span></p>
+            <p>Screams Heard: <span id="screamCount">0</span></p>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

@@ -5,7 +5,9 @@
 }
 
 body {
-    background: linear-gradient(135deg, #72e5f1 0%, #1a9bb5 100%);
+    font-family: 'Poppins', sans-serif;
+    background-color: #E0F7FA;
+    color: #333333;
     min-height: 100vh;
     padding: 20px;
 }
@@ -21,75 +23,94 @@ header {
 }
 
 h1 {
-    color: #000000;
-    font-size: 2.5rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #333333;
     margin-bottom: 10px;
 }
 
 p {
-    color: #654321;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    color: #555555;
 }
 
 #goatCanvas {
-    border-radius: 10px;
-    background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 100%);
+    border-radius: 15px;
+    background-color: #C8E6C9;
     cursor: crosshair;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .controls {
-    margin: 20px 0;
+    margin: 25px 0;
     display: flex;
     justify-content: center;
-    gap: 15px;
+    align-items: center;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
 button {
-    background: #ec1caa;
+    background-color: #FF7F50;
     color: white;
     border: none;
-    padding: 12px 20px;
-    border-radius: 25px;
+    padding: 15px 25px;
+    border-radius: 30px;
     font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
-    background: #1c1b1b;
-    transform: scale(1.05);
+    background-color: #FF6347;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .volume-control {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(255,255,255,0.7);
-    padding: 10px 15px;
-    border-radius: 25px;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .volume-control label {
-    color: #654321;
-    font-weight: bold;
+    font-weight: 600;
+    color: #333333;
 }
 
 input[type="range"] {
-    width: 100px;
+    width: 120px;
+    cursor: pointer;
 }
 
 .stats {
-    background: rgba(255,255,255,0.8);
-    padding: 15px;
-    border-radius: 10px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stats p {
+    margin: 5px 0;
+    font-size: 1rem;
 }
 
 .stats span {
-    font-weight: bold;
-    color: #8B4513;
+    font-weight: 600;
+    color: #FF7F50;
 }

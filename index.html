@@ -12,11 +12,13 @@
 <body>
     <div class="container">
         <header>
-            <h1>🐐 Screaming Goat Simulator 🐐</h1>
-            <p>Move your mouse around. You scared the goats!</p>
+            <h1>Screaming 🐐🐐🐐</h1>
+            <small>Move your mouse around. You scared the goats!</small>
         </header>
-        
-        <canvas id="goatCanvas" width="800" height="600"></canvas>
+        <div class="stats">
+            <p>Goats Scared: <span id="goatCount">0</span></p>
+            <p>Screams Heard: <span id="screamCount">0</span></p>
+        </div>
         
         <div class="controls">
             <button id="startBtn">Start Goat Panic</button>
@@ -27,10 +29,8 @@
             </div>
         </div>
         
-        <div class="stats">
-            <p>Goats Scared: <span id="goatCount">0</span></p>
-            <p>Screams Heard: <span id="screamCount">0</span></p>
-        </div>
+        <canvas id="goatCanvas" width="800" height="600"></canvas>
+        
     </div>
     
     <script src="main.js"></script>

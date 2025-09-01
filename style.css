@@ -97,11 +97,9 @@ input[type="range"] {
 }
 
 .stats {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    display: inline-block;
-    margin-top: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 

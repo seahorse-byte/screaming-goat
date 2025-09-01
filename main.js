@@ -27,11 +27,17 @@ class ScreamingGoatSimulator {
     try {
       this.audioContext = new (window.AudioContext ||
         window.webkitAudioContext)();
-      const soundFiles = ['assets/goat-sounds/goat1.mp3', 'assets/goat-sounds/goat2.mp3', 'assets/goat-sounds/goat3.mp3'];
+      const soundFiles = [
+        "assets/goat-sounds/goat1.mp3",
+        "assets/goat-sounds/goat2.mp3",
+        "assets/goat-sounds/goat3.mp3",
+      ];
       for (const file of soundFiles) {
         const response = await fetch(file);
         const arrayBuffer = await response.arrayBuffer();
-        const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+        const audioBuffer = await this.audioContext.decodeAudioData(
+          arrayBuffer
+        );
         this.audioBuffers.push(audioBuffer);
       }
       console.log("Audio system initialized and sounds loaded.");
@@ -41,7 +47,12 @@ class ScreamingGoatSimulator {
   }
 
   createGoatSound() {
-    if (!this.audioContext || this.audioBuffers.length === 0 || this.isSoundPlaying) return;
+    if (
+      !this.audioContext ||
+      this.audioBuffers.length === 0 ||
+      this.isSoundPlaying
+    )
+      return;
 
     this.isSoundPlaying = true;
 
@@ -200,60 +211,88 @@ class ScreamingGoatSimulator {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.goats.forEach((goat) => {
-      // Draw goat body
-      this.ctx.fillStyle = goat.scared ? "#ff4444" : goat.color;
+      this.ctx.save();
+      this.ctx.translate(goat.x, goat.y);
+
+      const angle = Math.atan2(goat.vy, goat.vx) + Math.PI / 2;
+      this.ctx.rotate(angle);
+
+      const s = goat.size; // Use s as a shorthand for goat.size
+
+      // Set colors
+      const bodyColor = goat.scared ? "#ff4444" : goat.color;
+      const hornColor = "#8B4513";
+      const eyeColor = "white";
+      const pupilColor = "black";
+      const legColor = goat.color;
+
+      // Legs (draw them first so they are behind the body)
+      this.ctx.fillStyle = legColor;
       this.ctx.beginPath();
-      this.ctx.arc(goat.x, goat.y, goat.size, 0, Math.PI * 2);
+      // Front-left
+      this.ctx.fillRect(-s / 2, s / 2, s / 4, s / 2);
+      // Front-right
+      this.ctx.fillRect(s / 4, s / 2, s / 4, s / 2);
+      // Back-left
+      this.ctx.fillRect(-s / 2, -s, s / 4, s / 2);
+      // Back-right
+      this.ctx.fillRect(s / 4, -s, s / 4, s / 2);
       this.ctx.fill();
 
-      // Draw goat eyes
-      this.ctx.fillStyle = "white";
+
+      // Body (an ellipse)
+      this.ctx.fillStyle = bodyColor;
       this.ctx.beginPath();
-      this.ctx.arc(
-        goat.x - goat.size / 3,
-        goat.y - goat.size / 4,
-        goat.size / 4,
-        0,
-        Math.PI * 2
-      );
-      this.ctx.arc(
-        goat.x + goat.size / 3,
-        goat.y - goat.size / 4,
-        goat.size / 4,
-        0,
-        Math.PI * 2
-      );
+      this.ctx.ellipse(0, 0, s / 1.5, s, 0, 0, Math.PI * 2);
       this.ctx.fill();
 
-      // Draw pupils
-      this.ctx.fillStyle = "black";
-      const pupilOffset = goat.scared ? 2 : 0;
+      // Head
       this.ctx.beginPath();
-      this.ctx.arc(
-        goat.x - goat.size / 3 + pupilOffset,
-        goat.y - goat.size / 4,
-        goat.size / 8,
-        0,
-        Math.PI * 2
-      );
-      this.ctx.arc(
-        goat.x + goat.size / 3 - pupilOffset,
-        goat.y - goat.size / 4,
-        goat.size / 8,
-        0,
-        Math.PI * 2
-      );
+      this.ctx.ellipse(0, -s, s / 2, s / 2, 0, 0, Math.PI * 2);
       this.ctx.fill();
 
-      // Draw horns
-      this.ctx.strokeStyle = "#8B4513";
-      this.ctx.lineWidth = 3;
+      // Eyes
+      this.ctx.fillStyle = eyeColor;
       this.ctx.beginPath();
-      this.ctx.moveTo(goat.x - goat.size / 2, goat.y - goat.size / 2);
-      this.ctx.lineTo(goat.x - goat.size, goat.y - goat.size);
-      this.ctx.moveTo(goat.x + goat.size / 2, goat.y - goat.size / 2);
-      this.ctx.lineTo(goat.x + goat.size, goat.y - goat.size);
+      this.ctx.arc(-s / 4, -s - s/10, s / 8, 0, Math.PI * 2); // Left eye
+      this.ctx.arc(s / 4, -s - s/10, s / 8, 0, Math.PI * 2);  // Right eye
+      this.ctx.fill();
+
+      // Pupils
+      this.ctx.fillStyle = pupilColor;
+      this.ctx.beginPath();
+      const pupilOffset = goat.scared ? s / 20 : 0;
+      this.ctx.arc(-s / 4 + pupilOffset, -s - s/10, s / 16, 0, Math.PI * 2);
+      this.ctx.arc(s / 4 - pupilOffset, -s - s/10, s / 16, 0, Math.PI * 2);
+      this.ctx.fill();
+
+      // Horns (curved)
+      this.ctx.strokeStyle = hornColor;
+      this.ctx.lineWidth = s / 8;
+      this.ctx.beginPath();
+      this.ctx.moveTo(-s / 4, -s - s / 4);
+      this.ctx.quadraticCurveTo(-s / 2, -s - s / 2, -s / 3, -s - s);
+      this.ctx.moveTo(s / 4, -s - s / 4);
+      this.ctx.quadraticCurveTo(s / 2, -s - s / 2, s / 3, -s - s);
       this.ctx.stroke();
+      
+      // Beard
+      this.ctx.fillStyle = bodyColor;
+      this.ctx.beginPath();
+      this.ctx.moveTo(0, -s / 1.8);
+      this.ctx.lineTo(-s/8, -s/1.8 + s/4);
+      this.ctx.lineTo(s/8, -s/1.8 + s/4);
+      this.ctx.closePath();
+      this.ctx.fill();
+
+      // Tail
+      this.ctx.fillStyle = bodyColor;
+      this.ctx.beginPath();
+      this.ctx.arc(0, s, s / 4, 0, Math.PI);
+      this.ctx.fill();
+
+
+      this.ctx.restore();
     });
   }
 
